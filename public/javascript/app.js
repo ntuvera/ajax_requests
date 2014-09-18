@@ -13,11 +13,16 @@ var youtubeRequest = function(){
   $.ajax({
     url: 'https://www.googleapis.com/youtube/v3/videos?id='+ query +'&key= AIzaSyCTycfGZRxyM6KUBkgcyuiC0Dvl1BTFUuI&part=snippet,contentDetails,statistics,status',
     success: function(data) {
-      console.log(data);
-      object = data;
-      $('#content').empty();
-      $('#content').text(object.items[0].statistics.viewCount + ' views');
-      return data;
+      if (data.items[0] === undefined) {
+       $('#content').empty().text('something went wrong -- invalid Video ID');
+      } else {
+      $('#content').empty().text(data.items[0].statistics.viewCount + ' views');
+      }
+    },
+    error: function() {
+      console.log('request failed')
+      $('#content').empty().text('something went wrong, please check with admin');
+
     }
   })
 }
