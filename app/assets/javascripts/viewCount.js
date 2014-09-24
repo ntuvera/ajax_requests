@@ -1,22 +1,15 @@
-/*
-$.ajax({
-  url: 'http://www.colourlovers.com/api/palettes/new?format=json',
-  success: function(data) {
-    console.log(data)
-  }
-})
-*/
 // https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key= AIzaSyCTycfGZRxyM6KUBkgcyuiC0Dvl1BTFUuI&part=snippet,contentDetails,statistics,status
 
 var youtubeRequest = function(){
   var query = $('#target').val()
   $.ajax({
-    url: 'https://www.googleapis.com/youtube/v3/videos?id='+ query +'&key= AIzaSyCTycfGZRxyM6KUBkgcyuiC0Dvl1BTFUuI&part=snippet,contentDetails,statistics,status',
+    url: 'https://gdata.youtube.com/feeds/api/videos/'+ query +'?v=2&alt=json',
     success: function(data) {
-      if (data.items[0] === undefined) {
+      var object = data;
+      if (object.entry.yt$statistics.viewCount === undefined) {
        $('#content').empty().text('something went wrong -- invalid Video ID');
       } else {
-      $('#content').empty().text(data.items[0].statistics.viewCount + ' views');
+      $('#content').empty().text(object.entry.yt$stastics.viewCount + ' views');
       }
     },
     error: function() {
