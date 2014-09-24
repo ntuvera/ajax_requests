@@ -7,10 +7,10 @@ var youtubeDataRequest = function(query){
       // present data to global variable for mapping out wanted data
       // object = data;
       var object = data;
-      videoInfo = {yt_id: object.entry.media$group.yt$videoid.$t,
-                   title: object.entry.title.$t,
-                   views: object.entry.yt$statistics.viewCount,
-                   thumbnail: object.entry.media$group.media$thumbnail[3].url }
+      videoInfo = {'yt_id': object.entry.media$group.yt$videoid.$t,
+                   'title': object.entry.title.$t,
+                   'views': object.entry.yt$statistics.viewCount,
+                   'thumbnail': object.entry.media$group.media$thumbnail[3].url }
     },
     error: function() {
       console.log('request failed')

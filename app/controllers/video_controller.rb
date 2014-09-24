@@ -14,14 +14,15 @@ class VideoController < ApplicationController
   end
 
   def create
-    @video = Video.new(params[:video])
+    binding.pry
+    @video = Video.create(yt_id: video_params[:yt_id],
+                          title: video_params[:title],
+                          views: video_params[:views],
+                          thumbnail: video_params[:thumbnail])
     respond_to do |f|
-      if @video.save
+      if
         f.html { redirect_to(@video)}
-        f.json { render :json => @video }
-      else
-        f.html {render :action => "new" }
-        f.json {render :json => @video }
+        f.json { render :json => @video.to_json }
       end
     end
   end
